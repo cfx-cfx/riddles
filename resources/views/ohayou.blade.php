@@ -105,6 +105,11 @@
               hover:opacity-100 text-center">
         Выбрать данетку
     </a>
+    <form method="GET" action="/games/generate">
+        <input type="submit"  value="Создать игры" class="inline-block px-4 py-1 rounded-lg border border-accent-600 opacity-90
+              bg-accent-500 text-white font-semibold
+              hover:opacity-100 text-center">        
+    </form>    
 </div>
 
 <div class="max-w-6xl mx-auto mt-8 px-4">
@@ -120,7 +125,7 @@
                         <th class="px-4 py-2 text-left text-xs font-semibold text-gray-600 uppercase">Тема</th>       
                         <th class="px-4 py-2 text-left text-xs font-semibold text-gray-600 uppercase">Статус</th>
                         <th class="px-4 py-2 text-left text-xs font-semibold text-gray-600 uppercase">Ответ</th>
-                        <th class="px-4 py-2 text-right text-xs font-semibold text-gray-600 uppercase"></th>user_id</th>
+                        <th class="px-4 py-2 text-right text-xs font-semibold text-gray-600 uppercase"></th>
                         <th class="px-4 py-2 text-right text-xs font-semibold text-gray-600 uppercase"></th>
                     </tr>
                 </thead>

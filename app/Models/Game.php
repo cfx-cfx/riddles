@@ -59,11 +59,11 @@ class Game extends Model
         return $this->host_user_id === $user->id;
     }
 
-    public static function isActive(): bool
+    public static function current(): Game|null
     {
         return self::query()
             ->where('status', 'active')
-            ->exists();
+            ->first();
     }
 
     public function isFinished()
@@ -71,12 +71,27 @@ class Game extends Model
         return $this->status === 'finished';
     }
 
-    public static function current(): Game|null
+    public static function createTen(): void
     {
-        return self::query()
-            ->where('status', 'active')
+        $latestScheduled = Game::where('status', 'scheduled')
+            ->latest('starts_at')
             ->first();
+
+        $lastGameDate = Carbon::parse($latestScheduled->starts_at);
+
+        for ($i = 1; $i <= 10; $i++) {
+            $startsAt = $lastGameDate
+                ->copy()
+                ->addWeeks($i)
+                ->setTime(18, 0);
+
+            Game::create([
+                'starts_at' => $startsAt,
+            ]);
+        }
     }
+
+
 
     protected function startsAt(): Attribute
     {

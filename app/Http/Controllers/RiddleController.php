@@ -17,8 +17,11 @@ class RiddleController extends Controller
 {
     public function index()
     {
-        $riddles = Riddle::where('status', 'published')->paginate(10);
-
+        if (auth()->user()->can('adminOnly', Riddle::class)) {
+            $riddles = Riddle::paginate(10);
+        } else {
+            $riddles = Riddle::where('status', 'published')->paginate(10);
+        }
         return view('riddles.index', compact('riddles'));
     }
 
@@ -99,8 +102,6 @@ class RiddleController extends Controller
 
     public function test()
     {
-        return Message::whereNull('parent_id')
-            ->with(['user', 'replies.user'])
-            ->get();
+        return Riddle::where('solution_text', 'like', '%овый год%')->get();
     }
 }

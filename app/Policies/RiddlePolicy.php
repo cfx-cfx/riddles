@@ -33,7 +33,7 @@ class RiddlePolicy
         return $user->id === $riddle->user_id;
     }
 
-    public function adminOnly(): bool
+    public function adminOnly(User $user): bool
     {
         return false;
     }

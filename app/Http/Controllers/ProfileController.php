@@ -7,8 +7,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use App\Models\Riddle;
+use App\Models\Message;
+use App\Models\Game;
 
 
 class ProfileController extends Controller
@@ -20,9 +24,13 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         $riddles = Riddle::where('user_id', $user->id)->get();
+
+        $canBeHost = $user->canBeHost();
+
         return view('profile.edit', [
             'user' => $request->user(),
             'riddles' => $riddles,
+            'canBeHost' => $canBeHost
         ]);
     }
 

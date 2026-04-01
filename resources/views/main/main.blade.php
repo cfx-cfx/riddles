@@ -8,7 +8,7 @@
         </h2>
     </x-slot>
 
-    @if($isActive)
+    @if($current)
         <div class=" font-semibold text-2xl mt-8 bg-white rounded-sm shadow-sm border border-gray-200 px-6 py-4 w-full flex flex-col items-center gap-2">
            <a href="/chat" class="hover:underline underline-offset-4 text-accent-600">Идёт игра</a>
         </div>

@@ -77,7 +77,7 @@ class MessageController extends Controller
         $gameOrDiscussion = $game ?? $latestFinished;
 
         Log::info('Broadcast channel', ['game' => $gameOrDiscussion->id]);
-        broadcast(new MessageSent($message, $gameOrDiscussion)); //->toOthers();
+        broadcast(new MessageSent($message, $gameOrDiscussion))->toOthers();
 
         return back();
     }

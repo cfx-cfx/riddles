@@ -48,8 +48,8 @@
 
         <div class="mx-2 flex justify-center gap-8 pt-4 border-t">
            <button type="submit" class="px-4 py-1 rounded-lg border border-accent-600
-            bg-accent-500 text-white font-semibold
-            hover:opacity-90">
+            bg-accent-500 text-white font-semibold opacity-90
+            hover:opacity-100">
                 Сохранить
               </button>
             <button type="reset"

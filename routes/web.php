@@ -93,11 +93,18 @@ Route::controller(SearchController::class)->group(function () {
 
 Route::get('/ohayou', [DashboardController::class, 'index'])->middleware('admin')->name('ohayou');
 
+Route::get('/games/generate', [GameController::class, 'createTen'])->middleware('admin');
 Route::get('/games/create', [GameController::class, 'create'])->middleware('admin')->name('games.create');
 Route::post('/games/store', [GameController::class, 'store'])->middleware('admin')->name('games.store');
 Route::get('/games/{game}/edit', [GameController::class, 'edit'])->middleware('admin')->name('games.edit');
 Route::put('/games/{game}', [GameController::class, 'update'])->middleware('admin')->name('games.update');
-Route::post('games/{game}/start', [GameController::class, 'start'])->middleware('auth')->name('games.start');
-Route::post('games/{game}/end', [GameController::class, 'end'])->middleware('auth')->name('games.end');
+Route::post('/games/{game}/start', [GameController::class, 'start'])->middleware('auth')->name('games.start');
+Route::post('/games/{game}/end', [GameController::class, 'end'])->middleware('auth')->name('games.end');
+Route::get('/games/generate', [GameController::class, 'generateTen'])->middleware('admin');
+Route::get('/games/date/picker', [GameController::class, 'selectGameDate'])->middleware('auth');
+Route::post('/games/host/store', [GameController::class, 'setHost'])->middleware('auth');
+
+
+
 
 require __DIR__ . '/auth.php';

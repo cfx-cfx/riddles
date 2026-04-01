@@ -53,6 +53,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Message::class);
     }
 
+    public function canBeHost(): bool
+    {
+        return !$this->is_admin
+            && $this->games()->count() >= 1;
+    }
+
     /**
      * Get the attributes that should be cast.
      *

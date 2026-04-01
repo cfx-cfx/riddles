@@ -179,25 +179,22 @@ function initEcho() {
     Echo.join(`game.${gameId}`)
         .listen('.message.sent', (e) => {
             appendMessage(e);
-        })
-        .here(users => {
-            console.log('Users:', users);
         });
 
-    Echo.private(`game`)        
+    Echo.join(`game`)        
         .listen('GameStarted', (e) => {
-            console.log(e);
             window.location.href = window.location.href;
+        })                
+        .here(users => {
+            console.log('Users:', users);
         })
         .listen('GameEnded', (e) => {
-            console.log(e);
             window.location.href = window.location.href;
         });
 }
 
 // добавляет сообщения в DOM, вызывается из Echo
 function appendMessage(message) {
-    console.log('appendMessage', message.id, message.parent_id);
     const hasNoReplies = message.hasNoReplies ?? true;
     const chat = document.querySelector('#chat-messages');
     const stage = message.stage ?? 'game';
@@ -313,7 +310,6 @@ function renderYesNoButtons(parentId) {
 
 // Кнопки ведущего - действие
 function initYesNoButtons() {
-        console.log('INIT CALLED');
 
     document.addEventListener('submit', async (e) => {
         const form = e.target;
@@ -330,11 +326,13 @@ function initYesNoButtons() {
         const token = form.querySelector('input[name="_token"]').value;
 
         try {
-            await axios.post('/message/sent', {
+            const response=await axios.post('/message/sent', {
                 content,
                 parent_id: parentId,
                 _token: token
             });
+
+            appendMessage(response.data);
 
             form.remove();
 

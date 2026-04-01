@@ -1,4 +1,14 @@
-{{-- Форма поиска --}}
+{{-- Стать ведущим --}}
+@if( $canBeHost)
+   <div class="p-4 my-4 bg-white rounded-md text-gray-600">
+    Не хотите ли быть ведущим игры? 
+    <a href="/games/date/picker" class=" block my-6 px-6 py-2 rounded-lg border border-accent-600
+        bg-accent-500 text-white font-semibold opacity-90 hover:opacity-100 text-center">
+        Да, хочу
+    </a>
+</div> 
+@endif
+{{-- Данетки пользователя --}}
 <div class="p-4 my-4 sm:mt-12 bg-white rounded-md">
     @if($riddles->isNotEmpty())
         <h2 class="text-accent-500 font-medium">Ваши данетки</h2>   

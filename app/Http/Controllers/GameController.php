@@ -103,4 +103,35 @@ class GameController extends Controller
 
         return redirect('chat');
     }
+
+    public function generateTen()
+    {
+        Game::createTen();
+
+        return redirect()->back()->with('message', 'Игры добавлены');
+    }
+
+    public function selectGameDate()
+    {
+        $games = Game::where('status', 'scheduled')
+            ->where('host_user_id', null)
+            ->get();
+
+        return view('games.game-date-picker', compact('games'));
+    }
+
+    public function setHost(Request $request)
+    {
+        $user = auth()->user();
+        $game = Game::where('id', $request->id)->first();
+
+        $startsAt = Carbon::parse($game->starts_at);
+        $game->update(['host_user_id' => $user->id]);
+
+        return back()->with([
+            'status' => 'Ok',
+            'date' => $startsAt->format('d. m'),
+            'time' => $startsAt->format('H:i'),
+        ]);
+    }
 }
