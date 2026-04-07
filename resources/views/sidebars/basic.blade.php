@@ -1,11 +1,11 @@
 {{-- Форма поиска --}}
-<div class="mt-4 p-4 sm:mt-8 space-y-6 w-full bg-white rounded-md">
-    <h2 class="text-accent-500 font-medium">Найти данетку</h2>
-    <form method="GET" action="{{ route('search') }}" class="max-w-md mx-auto ">
+<div class="my-8 p-4  w-full bg-white rounded-md">
+    <h2 class="mb-2 text-accent-500 text-center text-lg font-medium">Найти данетку</h2>
+    <form method="GET" action="{{ route('search') }}">
         {{-- Input с лупой внутри --}}
         <div class="relative">
             <input type="text" name="q" value="{{ request('q') }}" placeholder="Поиск" autocomplete="off" class="w-full rounded-lg border border-gray-300 bg-gray-100
-                   py-2 pl-5 pr-12
+                   py-1 pl-5 pr-12
                    text-gray-900 placeholder-gray-400">
 
             {{-- Лупа (НЕ кнопка) --}}
@@ -19,24 +19,20 @@
         </div>
 
         {{-- Кнопка submit под input --}}
-        <button type="submit" class="block w-full my-6 px-6 py-2 rounded-lg
-               border border-accent-600
-               bg-accent-500 opacity-90 text-white font-semibold opacity-90
-               hover:opacity-100">
+        <x-sidebar-button>
             Найти
-        </button>
+        </x-sidebar-button>
     </form>
 </div>
 
-{{-- Кнопка добавить данетку --}}
+{{-- Сссылка добавить данетку --}}
 @if(!request()->routeIs('riddles.create'))
 @auth
-<div class="mt-4 p-4 space-y-6 w-full bg-white rounded-md text-gray-700">
+<div class="my-4 p-4 space-y-6 w-full bg-white rounded-md text-gray-700">
     Если вы знаете данетки, которых здесь нет, пожалуйста, добавьте их на сайт.
-    <a href="{{route('riddles.create')}}"" class=" block my-6 px-6 py-2 rounded-lg border border-accent-600
-        bg-accent-500 text-white font-semibold opacity-90 hover:opacity-100 text-center">
-        Добавить данетку
-    </a>
+    <x-sidebar-reference href="{{route('riddles.create')}}">
+        Добавить
+    </x-sidebar-reference>
 </div>
 @endauth
 @endif

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
+use App\Models\Game;
 use App\Models\Riddle;
 use App\Models\Message;
 
@@ -57,6 +59,16 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return !$this->is_admin
             && $this->games()->count() >= 1;
+    }
+
+    public function hostDates(): Collection
+    {
+        $hostDates = Game::where('host_user_id', $this->id)
+            ->where('status', 'scheduled')
+            ->orderBy('starts_at')
+            ->pluck('starts_at');
+
+        return $hostDates;
     }
 
     /**

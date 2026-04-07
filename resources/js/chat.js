@@ -176,18 +176,30 @@ function initEcho() {
 
     console.log(`game.${gameId}`);
 
+    let usersList = [];
+
     Echo.join(`game.${gameId}`)
         .listen('.message.sent', (e) => {
             appendMessage(e);
+        })
+        .here(users => {
+            usersList = users;
+            render(usersList);
+            console.log(usersList);
+        })
+        .joining(user => {
+            usersList.push(user);
+            render(usersList);
+        })
+        .leaving(user=> {
+            usersList = usersList.filter(u => u.id !== user.id);
+            render(usersList);
         });
 
-    Echo.join(`game`)        
+    Echo.private(`game`)        
         .listen('GameStarted', (e) => {
             window.location.href = window.location.href;
-        })                
-        .here(users => {
-            console.log('Users:', users);
-        })
+        })            
         .listen('GameEnded', (e) => {
             window.location.href = window.location.href;
         });
@@ -339,5 +351,24 @@ function initYesNoButtons() {
         } catch (error) {
             console.error(error);
         }
+    });
+}
+
+// список игроков
+function render(users) {
+    const list = document.getElementById('players');
+
+    list.innerHTML = '';
+
+    users.forEach(user => {
+        const li = document.createElement('li');
+        const icon = document.createElement('span');
+        icon.classList="font-semibold";
+        icon.style.color = '#1967d2';
+        icon.textContent = '✓';
+
+        li.appendChild(icon);
+        li.append(' ' + user.name);
+        list.appendChild(li);
     });
 }

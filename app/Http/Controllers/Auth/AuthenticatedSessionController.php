@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Carbon;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -28,7 +29,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('main', absolute: false));
+        $user = auth()->user();
+        $hostDateFirst = $user->hostDates()->first();
+        $showModal = ($hostDateFirst->diffInDays(now()) < 7) ? $hostDateFirst : null;
+
+        return redirect()->intended(route('main'))
+            ->with('show_modal', $showModal);
     }
 
     /**

@@ -15,12 +15,5 @@ Broadcast::channel('game.{game}', function ($user) {
 });
 
 Broadcast::channel('game', function ($user) {
-    if ($user->banned_at) {
-        return false;
-    }
-
-    return [
-        'id' => $user->id,
-        'name' => $user->name,
-    ];
+    return !$user->banned_at;
 });

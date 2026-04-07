@@ -1,3 +1,4 @@
-<div>
-    <!-- I have not failed. I've just found 10,000 ways that won't work. - Thomas Edison -->
+<div class="bg-white p-4 rounded-md">
+    <h2 class="font-medium text-accent-500">Игроки в чате</h2>
+    <ul id="players" class="list-none p-4"></ul>
 </div>

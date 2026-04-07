@@ -36,6 +36,11 @@
                         : 'text-gray-600 hover:text-accent-500' }}">
                         Авторам и игрокам
                     </a>
+                    <a href="{{ route('schedule') }}" class="relative pb-1 transition {{ request()->routeIs('schedule')
+                        ? 'text-accent-500 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-accent after:rounded'
+                        : 'text-gray-600 hover:text-accent-500' }}">
+                        Расписание игр
+                    </a>
                 </nav>
             </div>
             @auth

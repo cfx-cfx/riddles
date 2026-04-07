@@ -75,9 +75,7 @@ Route::get('/moderation', function () {
 
 Route::get('/', [MainPageController::class, 'index'])->name('main');
 
-/*Route::get('/test', function () {
-    return view('test');
-});*/
+Route::get('/schedule', [GameController::class, 'schedule'])->name('schedule');
 
 Route::controller(MessageController::class)->middleware('auth')->group(function () {
     Route::get('chat', 'index')->name('chat');
@@ -103,8 +101,5 @@ Route::post('/games/{game}/end', [GameController::class, 'end'])->middleware('au
 Route::get('/games/generate', [GameController::class, 'generateTen'])->middleware('admin');
 Route::get('/games/date/picker', [GameController::class, 'selectGameDate'])->middleware('auth');
 Route::post('/games/host/store', [GameController::class, 'setHost'])->middleware('auth');
-
-
-
 
 require __DIR__ . '/auth.php';

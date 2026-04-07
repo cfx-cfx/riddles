@@ -14,11 +14,11 @@
 
     @if($game)      {{-- Завершение игры и ответ --}}
 
-    <div class=" pt-1 flex justify-center gap-4 mb-4">
+    <div class=" pt-2 flex justify-center gap-4 mb-4">
 
         <form method="POST" action="{{ route('games.end', $game) }}">
             @csrf
-            <button class="px-4 py-1 rounded-md bg-accent-500 opacity-90 text-white text-sm font-semibold hover:opacity-100"">
+            <button class="px-4 py-1 rounded-md bg-accent-500 opacity-85 text-white text-sm font-semibold hover:opacity-100"">
                 Завершить игру
             </button>
         </form>

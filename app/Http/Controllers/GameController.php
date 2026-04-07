@@ -128,10 +128,30 @@ class GameController extends Controller
         $startsAt = Carbon::parse($game->starts_at);
         $game->update(['host_user_id' => $user->id]);
 
+        if ($user->host_status === 'none') {
+            $user->host_status = 'active';
+            $user->save();
+        }
+
         return back()->with([
             'status' => 'Ok',
             'date' => $startsAt->format('d. m'),
             'time' => $startsAt->format('H:i'),
         ]);
+    }
+
+    public function schedule()
+    {
+        $scheduledGames = Game::where('status', 'scheduled')->oldest('starts_at');
+        $scheduledDates = $scheduledGames->pluck('starts_at');
+
+        $user = auth()->user();
+        if ($user) {
+            $userIsHost = $scheduledGames->where('host_user_id', $user->id)?->get();
+            $dates = $userIsHost?->pluck('starts_at');
+        }
+        $userIsHostDates = $dates ?? null;
+
+        return view('games.game-schedule', compact('scheduledDates', 'userIsHostDates'));
     }
 }

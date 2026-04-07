@@ -21,7 +21,7 @@ class Game extends Model
 
     public $timestamps = false;
 
-    public function riddle(): HasOne
+    public function riddles(): HasOne
     {
         return $this->hasOne(Riddle::class);
     }
@@ -43,16 +43,6 @@ class Game extends Model
             ->first();
     }
 
-    /**
-     * Проверяет, есть ли запланированная игра с ведущим
-     */
-    public static function existsScheduledGame(): bool
-    {
-        return self::query()
-            ->where('status', 'scheduled')
-            ->whereNotNull('host_user_id')
-            ->exists();
-    }
     public function isHost(): bool
     {
         $user = auth()->user();
@@ -90,8 +80,6 @@ class Game extends Model
             ]);
         }
     }
-
-
 
     protected function startsAt(): Attribute
     {

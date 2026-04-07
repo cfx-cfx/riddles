@@ -104,7 +104,7 @@
                 Отмена
             </button>
 
-            <button type="submit" class="px-6 py-1 rounded-lg border border-accent-500 opacity-90
+            <button type="submit" class="px-6 py-1 rounded-lg border border-accent-500 opacity-80
            bg-accent-500 text-white font-semibold
            hover:opacity-100">
                 Сохранить

@@ -102,6 +102,6 @@ class RiddleController extends Controller
 
     public function test()
     {
-        return Riddle::where('solution_text', 'like', '%овый год%')->get();
+        return session('hostDates');
     }
 }
